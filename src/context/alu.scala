@@ -78,7 +78,19 @@ object alu {
         val args3 = args.map(toReal).filter(_ != None)
         if (args3.size == args.size) args3.flatten.reduce(_-_)
         else {
-          throw new TypeException("Inputs to + must be numbers")
+          throw new TypeException("Inputs to - must be numbers")
+        }
+      }
+    }
+    
+    private def div(args: List[Value]) = {
+      val args2 = args.map(toInt).filter(_ != None)
+      if (args2.size == args.size) args2.flatten.reduce(_/_)
+      else {
+        val args3 = args.map(toReal).filter(_ != None)
+        if (args3.size == args.size) args3.flatten.reduce(_/_)
+        else {
+          throw new TypeException("Inputs to / must be numbers")
         }
       }
     }
