@@ -110,6 +110,21 @@ object alu {
       }
    }  
   
+  def more(args: List[Value]): Value = {
+      if (args.length  != 2) throw new TypeException("more expects two inputs")
+      val args2 = args.map(toInt).filter(_ != None)
+      if (args2.size == args.size) Boole(args2(0) > args2(1))
+      else {
+        val args3 = args.map(toReal).filter(_ != None)
+        if (args3.size == args.size) Boole(args3(0) > args3(1))
+        else {
+          val args4 = args.map(toChars).filter(_ != None)
+          if (args4.size == args.size) Boole(args4(0) > args4(1))
+          else throw new TypeException("Inputs to > must be numbers or texts")
+        }
+      }
+   }  
+  
  
    def write(vals: List[Value]): Value = { println(vals(0)); Notification.DONE }
    def read(vals: List[Value]): Value = { val result = io.StdIn.readDouble(); Real(result)}
