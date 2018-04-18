@@ -1,15 +1,23 @@
 package expression
 
+import context._
 import value._
 
-class Environment extends collection.mutable.HashMap[Identifier, Value]
-
-trait Expression
-{
+trait Expression {
   def execute(env: Environment): Value
 }
 
-case class Identifier(val name: String) extends Expression {
-  override def toString = name
-  def execute(env: Environment) = env(this)
+/**********************************/
+
+trait Literal extends Expression with Value {
+  def execute(env: Environment) = this
 }
+
+/**********************************/
+
+case class Identifier(val name: String) extends Expression {
+  def execute(env: Environment) = env(this)
+  override def toString = name
+    
+}
+

@@ -81,6 +81,9 @@ class Jedi1Parsers extends RegexParsers {
  }
  
  // integer ::= 0|(\+|-)?[1-9][0-9]*
+ def integer: Parser[Integer] = """0|(\+|-)?[1-9][0-9]*""".r ^^ {
+   case digits => Integer(digits.toInt)
+ }
  
  // real ::= (\+|-)?[0-9]+\.[0-9]+
  
@@ -88,7 +91,15 @@ class Jedi1Parsers extends RegexParsers {
 
  // identifier ::= [a-zA-Z][a-zA-Z0-9]*
  
+ //zero or more expressions 
+ //ex:
+ //foo(), foo(x), foo(x,y,z)
+ def operands: Parser[List[Expression]] = ???
+ 
  // funCall ::= identifier ~ operands
+ def funCall: Parser[FunCall] = identifier ~ operands ^^ {
+   case op ~ ops => FunCall(op, ops)
+ }
  
  // operands ::= "(" ~ (expression ~ ("," ~ expression)*)? ~ ")"
   

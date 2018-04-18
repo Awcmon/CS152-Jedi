@@ -1,27 +1,31 @@
 package value
 
 import expression._
+import context._
 
 trait Value
 case class Notification() extends Value
 //honestly not sure what exactly you want for part 6
-object OK extends Notification
+object Notification
 {
-  def apply() = println("ok")
-}
-object DONE extends Notification
-{
-  def apply() = println("done")
-}
-object UNSPECIFIED extends Notification
-{
-  def apply() = println("unspecified")
+  object OK extends Notification
+  {
+    def apply() = println("ok")
+  }
+  object DONE extends Notification
+  {
+    def apply() = println("done")
+  }
+  object UNSPECIFIED extends Notification
+  {
+    def apply() = println("unspecified")
+  }
 }
 
 case class Variable() extends Value
 case class Store() extends Value
 case class Closure() extends Value
-
+/*
 trait Literal extends Value with Expression
 {
   def execute(env: Environment) = this match {
@@ -32,6 +36,7 @@ trait Literal extends Value with Expression
   		case _ => throw new Exception("Unrecognized expression")
   	}
 }
+*/
 
 case class Boole(val value: Boolean) extends Literal
 {

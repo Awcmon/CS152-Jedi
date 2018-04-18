@@ -58,6 +58,18 @@ object alu {
         }
       }
     }
+    
+    private def mul(args: List[Value]) = {
+      val args2 = args.map(toInt).filter(_ != None)
+      if (args2.size == args.size) args2.flatten.reduce(_*_)
+      else {
+        val args3 = args.map(toReal).filter(_ != None)
+        if (args3.size == args.size) args3.flatten.reduce(_*_)
+        else {
+          throw new TypeException("Inputs to * must be numbers")
+        }
+      }
+    }
   
   def less(args: List[Value]): Value = {
       if (args.length  != 2) throw new TypeException("less expects two inputs")

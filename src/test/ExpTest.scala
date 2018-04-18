@@ -2,7 +2,7 @@ package test
 
 import value._
 import expression._
-//import context._
+import context._
 
 object ExpTest extends App {
   val globalEnv = new Environment
