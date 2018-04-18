@@ -43,7 +43,7 @@ object alu {
     private def toChars(arg: Value): Option[Chars] =
       if (arg.isInstanceOf[Chars]) Some(arg.asInstanceOf[Chars]) else None
       
-    private def add(args: List[Value]) = {
+    def add(args: List[Value]) = {
       val args2 = args.map(toInt).filter(_ != None)
       if (args2.size == args.size) args2.flatten.reduce(_+_)
       else {
@@ -81,7 +81,7 @@ object alu {
           val args4 = args.map(toChars).filter(_ != None)
           if (args4.size == args.size) Boole(args4.flatten.map(_==args4.head).reduce(_==_))
           else {
-            throw new TypeException("Inputs to == must be numbers or texts")
+            throw new TypeException("Inputs to == must be numbers or text and the same type")
           }
         }
       }

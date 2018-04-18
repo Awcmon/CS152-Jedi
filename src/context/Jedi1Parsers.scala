@@ -44,9 +44,8 @@ class Jedi1Parsers extends RegexParsers {
    }
    
    // inequality ::= sum ~ (("<" | ">" | "!=") ~ sum)?
-   def  inequality: Parser[Expression] = sum ~ rep(("<" | ">" | "!=") ~> sum) ^^ {
-     case con ~ Nil => con
-     case con ~ more => FunCall(Identifier("unequals"), con::more)
+   def  inequality: Parser[Expression] = sum ~ opt(("<" | ">" | "!=") ~> sum) ^^ {
+     case con ~ more => FunCall(Identifier("unequals"), List(more.get))
    }
    // 
 
@@ -111,17 +110,17 @@ class Jedi1Parsers extends RegexParsers {
    case id => Identifier(id)
  }
  
- //zero or more expressions 
- //ex:
- //foo(), foo(x), foo(x,y,z)
- def operands: Parser[List[Expression]] = ???
- 
  // funCall ::= identifier ~ operands
  def funCall: Parser[FunCall] = identifier ~ operands ^^ {
    case op ~ ops => FunCall(op, ops)
  }
  
  // operands ::= "(" ~ (expression ~ ("," ~ expression)*)? ~ ")"
-  
+ //zero or more expressions 
+ //ex:
+ //foo(), foo(x), foo(x,y,z)
+ def operands: Parser[List[Expression]] = "(" ~ opt(expression ~ rep("," ~ expression)) ~ ")" ^^ {
+   case "("~exp ~ ")" => exp
+ }
 }
 
