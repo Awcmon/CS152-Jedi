@@ -43,7 +43,7 @@ object alu {
     private def toChars(arg: Value): Option[Chars] =
       if (arg.isInstanceOf[Chars]) Some(arg.asInstanceOf[Chars]) else None
       
-    def add(args: List[Value]) = {
+    private def add(args: List[Value]) = {
       val args2 = args.map(toInt).filter(_ != None)
       if (args2.size == args.size) args2.flatten.reduce(_+_)
       else {
