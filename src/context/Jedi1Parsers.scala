@@ -32,11 +32,22 @@ class Jedi1Parsers extends RegexParsers {
    }
    
    // conjunction ::= equality ~ ("&&" ~ equality)*
+   def  conjunction: Parser[Expression] = equality ~ rep("&&" ~> equality) ^^ {
+     case eq ~ Nil => eq
+     case eq ~ more => Conjunction(eq::more)
+   }
    
    // equality ::= inequality ~ ("==" ~ inequality)*
+   def  equality: Parser[Expression] = inequality ~ rep("==" ~> inequality) ^^ {
+     case con ~ Nil => con
+     case con ~ more => FunCall(Identifier("equals"), con::more)
+   }
    
    // inequality ::= sum ~ (("<" | ">" | "!=") ~ sum)?
-   
+   def  inequality: Parser[Expression] = sum ~ rep(("<" | ">" | "!=") ~> sum) ^^ {
+     case con ~ Nil => con
+     case con ~ more => FunCall(Identifier("unequals"), con::more)
+   }
    // 
 
    
@@ -86,10 +97,19 @@ class Jedi1Parsers extends RegexParsers {
  }
  
  // real ::= (\+|-)?[0-9]+\.[0-9]+
+  def real: Parser[Real] = """(\+|-)?[0-9]+\.[0-9]+""".r ^^ {
+   case digits => Real(digits.toDouble)
+ }
  
  // boole ::= true | false
+  def boole: Parser[Boole] = """true | false""".r ^^ {
+   case bo => Boole(bo.toBoolean)
+ }
 
  // identifier ::= [a-zA-Z][a-zA-Z0-9]*
+  def identifier: Parser[Identifier] = """[a-zA-Z][a-zA-Z0-9]*""".r ^^ {
+   case id => Identifier(id)
+ }
  
  //zero or more expressions 
  //ex:
