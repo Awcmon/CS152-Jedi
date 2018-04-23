@@ -113,17 +113,17 @@ class Jedi1Parsers extends RegexParsers {
    case id => Identifier(id)
  }
  
- //zero or more expressions 
- //ex:
- //foo(), foo(x), foo(x,y,z)
- def operands: Parser[List[Expression]] = ???
- 
  // funCall ::= identifier ~ operands
  def funCall: Parser[FunCall] = identifier ~ operands ^^ {
    case op ~ ops => FunCall(op, ops)
  }
  
  // operands ::= "(" ~ (expression ~ ("," ~ expression)*)? ~ ")"
-  
+ //zero or more expressions 
+ //ex:
+ //foo(), foo(x), foo(x,y,z)
+ def operands: Parser[List[Expression]] = "(" ~ opt(expression ~ rep("," ~> expression)) ~ ")" ^^ {
+   case "("~Some(exp~(more))~")" => exp::more
+ }
 }
 
