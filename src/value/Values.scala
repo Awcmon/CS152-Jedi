@@ -4,21 +4,21 @@ import expression._
 import context._
 
 trait Value
-case class Notification() extends Value
+class Notification() extends Value {
+  val message = "notification"
+  override def toString = message
+}
 //honestly not sure what exactly you want for part 6
-object Notification
-{
-  object OK extends Notification
-  {
-    def apply() = println("ok")
+object Notification {
+  def apply() = toString
+  object OK extends Notification{
+    override val message = "ok"
   }
-  object DONE extends Notification
-  {
-    def apply() = println("done")
+  object DONE extends Notification{
+    override val message = "done"
   }
-  object UNSPECIFIED extends Notification
-  {
-    def apply() = println("unspecified")
+  object UNSPECIFIED extends Notification{
+    override val message = "unspecified"
   }
 }
 
