@@ -73,13 +73,13 @@ object alu {
     
     private def equals(args: List[Value]) = {
       val args2 = args.map(toInt).filter(_ != None)
-      if (args2.size == args.size) Boole(args2.flatten.map(_==args2.head).reduce(_==_))
+      if (args2.size == args.size) Boole(args2.map(_==args2.head).reduce(_==_))
       else {
         val args3 = args.map(toReal).filter(_ != None)
-        if (args3.size == args.size) Boole(args3.flatten.map(_==args3.head).reduce(_==_))
+        if (args3.size == args.size) Boole(args3.map(_==args3.head).reduce(_==_))
         else {
           val args4 = args.map(toChars).filter(_ != None)
-          if (args4.size == args.size) Boole(args4.flatten.map(_==args4.head).reduce(_==_))
+          if (args4.size == args.size) Boole(args4.map(_==args4.head).reduce(_==_))
           else {
             throw new TypeException("Inputs to == must be numbers or text and the same type")
           }
