@@ -104,7 +104,7 @@ class Jedi1Parsers extends RegexParsers {
  }
  
  // boole ::= true | false
-  def boole: Parser[Boole] = """true | false""".r ^^ {
+  def boole: Parser[Boole] = """true|false""".r ^^ {
    case bo => Boole(bo.toBoolean)
  }
 
