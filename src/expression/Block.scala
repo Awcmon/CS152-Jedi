@@ -7,6 +7,6 @@ case class Block(val expressions: List[Expression]) extends SpecialForm {
   def execute(env: Environment) = 
     {
       val tempEnv = new Environment(env)
-      if(expressions.tail == null) expressions.head.execute(tempEnv) else Block(expressions.tail).execute(tempEnv)
+      if(expressions.tail.size == 0) expressions.head.execute(tempEnv) else {expressions.head.execute(tempEnv); Block(expressions.tail).execute(tempEnv)}
     }
 }
