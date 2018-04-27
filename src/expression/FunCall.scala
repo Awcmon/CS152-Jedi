@@ -17,7 +17,7 @@ case class FunCall(val operator: Identifier, val operands: List[Expression]) ext
     catch
     {
       case e: UndefinedException => alu.execute(operator, args)
-      case e: TypeException => alu.execute(operator, args)
+      //case e: TypeException => alu.execute(operator, args)
     }
   }
 }
