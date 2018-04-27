@@ -24,7 +24,7 @@ object Notification {
 
 case class Variable() extends Value
 case class Store() extends Value
-case class Closure() extends Value
+
 /*
 trait Literal extends Value with Expression
 {
