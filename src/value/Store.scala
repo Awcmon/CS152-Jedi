@@ -3,7 +3,7 @@ package value
 import collection.mutable._
 import context._
 
-class Store(private var elems: ArrayBufffer[Value] = ArrayBuffer[Value]()) extends Value {
+class Store(private var elems: ArrayBuffer[Value] = ArrayBuffer[Value]()) extends Value {
   // adds e to the end of store
   def add(e: Value) {elems += e}
   // inserts e at position pos in this
