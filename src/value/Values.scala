@@ -22,8 +22,6 @@ object Notification {
   }
 }
 
-case class Variable() extends Value
-
 /*
 trait Literal extends Value with Expression
 {
