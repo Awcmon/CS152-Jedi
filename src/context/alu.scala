@@ -177,10 +177,10 @@ object alu {
    // variable ops
    
    // returns the content of args(0)
-   private def dereference(args: List[Value]) = {???}
+   private def dereference(args: List[Value]) = {args(0).asInstanceOf[Variable].content}
    
    // creates a new variable cobtaining args(0)
-   private def makeVar(args: List[Value]) = {???}
+   private def makeVar(args: List[Value]) = {new Variable(args(0))}
    
    // store ops
    
