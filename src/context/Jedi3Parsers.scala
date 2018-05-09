@@ -7,17 +7,19 @@ import value._
 class Jedi3Parsers extends Jedi2Parsers {
   
   // assignment ::= identifier ~ "=" ~ expression
-   def assignment: Parser[Expression] = identifier ~ "=" ~ expression ^^ {
-     case id ~ "=" ~ exp => ???
+   def assignment: Parser[Assignment] = identifier ~ "=" ~ expression ^^ {
+     case id ~ "=" ~ exp => Assignment(id, exp)
    }
   
   // iteration ::= "while" ~ "(" ~ expression ~ ")" ~ expression
-  def iteration: Parser[Conditional] = "while" ~ "(" ~ expression ~ ")" ~ expression ^^ {
-     case "while"~"("~cond~")"~exp => ???
+  def iteration: Parser[Iteration] = "while" ~ "(" ~ expression ~ ")" ~ expression ^^ {
+     case "while"~"("~cond~")"~exp => Iteration(cond, exp)
    }
   
   // dereference ::= "[" ~ expression ~ "]"
-  
+  def dereference: Parser[Expression] = "[" ~ expression ~ "]" ^^ {
+    case "[" ~ expression ~ "]" => expression
+  }
 
   override def expression: Parser[Expression] = declaration | conditional | iteration | disjunction | failure("Invalid expression")
   override def term: Parser[Expression]  = lambda | funCall | block | assignment | dereference | literal | "("~>expression<~")"
