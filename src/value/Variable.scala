@@ -1,6 +1,6 @@
 package value
 
-case class Variable() extends Value 
+case class Variable(var content: Value) extends Value 
 {
   
 }
