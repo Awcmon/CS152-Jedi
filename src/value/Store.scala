@@ -17,9 +17,10 @@ class Store(private var elems: ArrayBuffer[Value] = ArrayBuffer[Value]()) extend
   // returns the size of this
   def size: Integer = Integer(elems.size)
   // returns "{e0 e1 e2 ...}"
-  override def toString = {elems.toString}
+  override def toString = {"{" + elems.map(_.toString).reduce(_ + " " + _) + "}"}
   // returns store containing the elements of this transformed by trans
-  def map(trans: Closure): Store = {???}
+  def map(trans: Closure): Store = {elems = elems.map((x:Value) => trans.apply(List(x))); this}
   // returns store containing the elements of this that passed test
-  def filter(test: Closure): Store = {???}
+  def filter(test: Closure): Store = {elems = elems.filter((x:Value) => test.apply(List(x)).asInstanceOf[Boole].value); this}
+
 }

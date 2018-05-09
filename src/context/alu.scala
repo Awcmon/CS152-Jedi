@@ -224,7 +224,7 @@ object alu {
      if(!args(0).isInstanceOf[Closure] || !args(1).isInstanceOf[Store]) 
         throw new TypeException("expected signature: map(f: Closure, s: Store)")
      args(1).asInstanceOf[Store].map(args(0).asInstanceOf[Closure])
-     Notification.DONE
+     args(1).asInstanceOf[Store]
    } 
    
    // filter(f: Closure, s: Store) calls s.filter(f)
@@ -234,7 +234,7 @@ object alu {
      if(!args(0).isInstanceOf[Closure] || !args(1).isInstanceOf[Store]) 
         throw new TypeException("expected signature: filter(f: Closure, s: Store)")
      args(1).asInstanceOf[Store].filter(args(0).asInstanceOf[Closure])
-     Notification.DONE
+     args(1).asInstanceOf[Store]
    } 
    
    // contains(v: Value, s: Store) calls s.contains(v)
