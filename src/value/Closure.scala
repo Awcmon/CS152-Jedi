@@ -7,11 +7,7 @@ case class Closure(val params: List[Identifier], val body: Expression, val defEn
 {
   def apply(args: List[Value], callingEnv: Environment = null) = 
   {
-    var tempEnv = new Environment(defEnv)
-    if(!Flags.useStaticScopeRule && callingEnv != null)
-    {
-      tempEnv = new Environment(callingEnv)
-    }
+    val tempEnv = if(!Flags.useStaticScopeRule && callingEnv != null) new Environment(callingEnv) else new Environment(defEnv)
     tempEnv.bulkPut(params, args)
     body.execute(tempEnv)
   }
