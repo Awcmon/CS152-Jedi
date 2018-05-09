@@ -11,6 +11,7 @@ class Jedi2Parsers extends Jedi1Parsers {
   // params ::= "(" ~ (identifier ~ ("," ~ identifier)*)? ~ ")"
   def params: Parser[List[Identifier]] = "(" ~ opt(identifier ~ rep("," ~> identifier)) ~ ")" ^^ {
     case "("~Some(id~(more))~")" => id::more
+    case "("~None~")" => List()
   }
   
   // lambda parser
