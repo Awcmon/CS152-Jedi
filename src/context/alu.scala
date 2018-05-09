@@ -5,6 +5,8 @@ package context
 import expression._
 import value._
 
+import collection.mutable._
+
 /*
  * Notes:
  * alu implements all low-level arithmetic, logic, and I/O functions
@@ -183,7 +185,7 @@ object alu {
    // store ops
    
    // returns a new store containing args
-   private def store(args: List[Value]) = {???}
+   private def store(args: List[Value]) = {new Store(args.to[ArrayBuffer])}
    
    // put(v: Value, p: Integer, s: Store) calls s.put(v, p)
    private def put(args: List[Value]) = {
@@ -196,25 +198,74 @@ object alu {
    } 
    
    // rem(p: Integer, s: Store) calls s.rem(p)
-   private def rem(args: List[Value]) = {???}
+   private def rem(args: List[Value]) = {
+     if (args.size != 2)
+        throw new TypeException("expected signature: rem(p: Integer, s: Store)")
+     if(!args(0).isInstanceOf[Integer] || !args(1).isInstanceOf[Store]) 
+        throw new TypeException("expected signature: rem(p: Integer, s: Store)")
+     args(1).asInstanceOf[Store].rem(args(0).asInstanceOf[Integer])
+     Notification.DONE
+   }
    
    // get(p: Integer, s: Store) calls s.get(p)
-   private def get(args: List[Value]) = {???}
+   private def get(args: List[Value]) = {
+     if (args.size != 2)
+        throw new TypeException("expected signature: get(p: Integer, s: Store)")
+     if(!args(0).isInstanceOf[Integer] || !args(1).isInstanceOf[Store]) 
+        throw new TypeException("expected signature: get(p: Integer, s: Store)")
+     args(1).asInstanceOf[Store].get(args(0).asInstanceOf[Integer])
+     Notification.DONE
+   }
    
    // map(f: Closure, s: Store) calls s.map(f)
-   private def map(args: List[Value]) = {???} 
+   private def map(args: List[Value]) = {
+     if (args.size != 2)
+        throw new TypeException("expected signature: map(f: Closure, s: Store)")
+     if(!args(0).isInstanceOf[Closure] || !args(1).isInstanceOf[Store]) 
+        throw new TypeException("expected signature: map(f: Closure, s: Store)")
+     args(1).asInstanceOf[Store].map(args(0).asInstanceOf[Closure])
+     Notification.DONE
+   } 
    
    // filter(f: Closure, s: Store) calls s.filter(f)
-   private def filter(args: List[Value]) = {???} 
+   private def filter(args: List[Value]) = {
+     if (args.size != 2)
+        throw new TypeException("expected signature: filter(f: Closure, s: Store)")
+     if(!args(0).isInstanceOf[Closure] || !args(1).isInstanceOf[Store]) 
+        throw new TypeException("expected signature: filter(f: Closure, s: Store)")
+     args(1).asInstanceOf[Store].filter(args(0).asInstanceOf[Closure])
+     Notification.DONE
+   } 
    
    // contains(v: Value, s: Store) calls s.contains(v)
-   private def contains(args: List[Value]) = {???}
+   private def contains(args: List[Value]) = {     
+     if (args.size != 2)
+        throw new TypeException("expected signature: contains(v: Value, s: Store)")
+     if(!args(0).isInstanceOf[Value] || !args(1).isInstanceOf[Store]) 
+        throw new TypeException("expected signature: contains(v: Value, s: Store)")
+     args(1).asInstanceOf[Store].contains(args(0).asInstanceOf[Value])
+     Notification.DONE
+   }
    
    // addLast(v: Value, s: Store) calls s.add(v)
-   private def addLast(args: List[Value]) = {???}
+   private def addLast(args: List[Value]) = {
+    if (args.size != 2)
+        throw new TypeException("expected signature: addLast(v: Value, s: Store)")
+     if(!args(0).isInstanceOf[Value] || !args(1).isInstanceOf[Store]) 
+        throw new TypeException("expected signature: addLast(v: Value, s: Store)")
+     args(1).asInstanceOf[Store].add(args(0).asInstanceOf[Value])
+     Notification.DONE
+   }
    
    // size(s: Store) calls s.size
-   private def size(args: List[Value]) = {???}
+   private def size(args: List[Value]) = {
+     if (args.size != 1)
+        throw new TypeException("expected signature: size(s: Store)")
+     if(!args(0).isInstanceOf[Store]) 
+        throw new TypeException("expected signature: size(s: Store)")
+     args(0).asInstanceOf[Store].size
+     Notification.DONE
+   }
    
   // etc.
 }
