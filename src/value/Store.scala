@@ -21,6 +21,6 @@ class Store(private var elems: ArrayBuffer[Value] = ArrayBuffer[Value]()) extend
   // returns store containing the elements of this transformed by trans
   def map(trans: Closure): Store = {new Store(elems.map((x:Value) => trans.apply(List(x))))}
   // returns store containing the elements of this that passed test
-  def filter(test: Closure): Store = {new Store(elems.filter((x:Value) => test.apply(List(x)).asInstanceOf[Boole].value))}
+  def filter(test: Closure): Store = { new Store( elems.filter((x:Value) => test.apply(List(x)).asInstanceOf[Boole].value) ) }
 
 }
