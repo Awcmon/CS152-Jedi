@@ -12,7 +12,7 @@ case class FunCall(val operator: Identifier, val operands: List[Expression]) ext
     {
       val maybeClosure = operator.execute(env)
       if(!maybeClosure.isInstanceOf[Closure]) throw new TypeException("undefined")
-      else maybeClosure.asInstanceOf[Closure](args)
+      else maybeClosure.asInstanceOf[Closure](args, env)
     }
     catch
     {

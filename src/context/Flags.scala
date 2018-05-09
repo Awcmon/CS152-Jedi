@@ -5,5 +5,5 @@ object Flags {
   val passByName = 2
   val passByText = 3
   var paramaterPassing = passByName
-  var useStaticScopeRule = true
+  var useStaticScopeRule = false
 }
