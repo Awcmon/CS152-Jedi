@@ -10,7 +10,7 @@ case class FunCall(val operator: Identifier, val operands: List[Expression]) ext
     val args: List[Value] = if(Flags.parameterPassing == Flags.passByText)
       operands.map(Text(_))
     else if(Flags.parameterPassing == Flags.passByName)
-      operands.map(_.execute(env))
+      operands.map(x => new Thunk(x, env))
     else
       operands.map(_.execute(env)) //eager execution
     //alu.execute(operator, args)

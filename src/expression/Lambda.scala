@@ -4,5 +4,5 @@ import context._
 import value._
 
 case class Lambda(val params: List[Identifier], val body: Expression) extends SpecialForm {
-  def execute(env: Environment) = Closure(params, body, env)
+  def execute(env: Environment) = new Closure(params, body, env)
 }
