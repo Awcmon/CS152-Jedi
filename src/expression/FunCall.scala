@@ -6,13 +6,7 @@ import context._
 case class FunCall(val operator: Identifier, val operands: List[Expression]) extends Expression
 {
   def execute(env: Environment): Value = {
-    val args: List[Value] = if(Flags.parameterPassing == Flags.passByText)
-          operands.map(Text(_))
-        else if(Flags.parameterPassing == Flags.passByName)
-          operands.map(_.execute(env))
-        else
-          operands.map(_.execute(env)) //eager execution
-    
+    val args: List[Value] = operands.map(_.execute(env)) //eager execution
     //alu.execute(operator, args)
     try
     {
@@ -22,7 +16,7 @@ case class FunCall(val operator: Identifier, val operands: List[Expression]) ext
     }
     catch
     {
-      case e: UndefinedException => alu.execute(operator, operands.map(_.execute(env)))
+      case e: UndefinedException => alu.execute(operator, args)
       //case e: TypeException => alu.execute(operator, args)
     }
   }
