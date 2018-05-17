@@ -1,0 +1,33 @@
+
+def bal1 = var(0.0)
+def bal2 = var(0.0)
+
+def deposit = lambda(acct, amt) acct = [acct] + amt
+def withdraw = lambda(acct, amt) {def temp = [acct] - amt; if (0 < temp || temp == 0) acct = temp}
+
+bal1
+deposit(bal1, 25)
+bal1
+withdraw(bal1, 10)
+bal1
+withdraw(bal1, 30)
+bal1
+
+while ([bal2] < 100) { write([bal2]); deposit(bal2, 17.3)}
+bal2
+
+def ages = store(19.0, 23.0, 17.0, 31.0, 55.0)
+ages
+get(1, ages)
+put(60, 2, ages)
+ages
+
+def ages2 = map(lambda(x) x / 2 + 7, ages)
+ages2
+
+def ages3 = filter(lambda(x) x > 17, ages)
+ages3
+
+def avg = lambda(s) {def res = var(0.0); def count = var(0); while([count] < size(s)) { res = [res] + get([count], s); count = [count] + 1}; if ([count] == 0) 0.0 else [res]/[count]}
+avg(ages)
+
