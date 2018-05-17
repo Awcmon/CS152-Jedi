@@ -1,0 +1,4 @@
+write("Testing scope rules ... ")
+
+def add100 = {def alpha = 100; lambda(x) x + alpha}
+{def alpha = 25; add100(alpha * 2)}
